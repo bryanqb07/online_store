@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 const db = require("../config/keys").MONGO_URI;
 const expressGraphQL = require("express-graphql");
 require('./models/index');
@@ -19,6 +20,8 @@ mongoose
 
 // remember we use bodyParser to parse requests into json
 app.use(bodyParser.json());
+
+app.use(cors());
 
 app.use(
     "/graphql",

@@ -4,7 +4,21 @@ export const FETCH_PRODUCTS = gql`
   {
     products{
       id,
-      name
+      name,
+      description,
+      price
+    }
+  }
+`;
+
+export const FETCH_PRODUCT = gql`
+  query FetchProduct($id: ID!){
+    product(id: $id){
+      id,
+      name,
+      description,
+      weight,
+      price
     }
   }
 `;

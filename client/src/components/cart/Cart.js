@@ -10,17 +10,22 @@ function Cart() {
                 if (loading) return "Loading..."
                 if (error) return `Error! ${error.message}`;
 
-                return ( 
-                    <ul>
-                        { data.cart.length > 0 ?
-                            data.cart.map(cartItem => (
+                if(data.cart.length > 0){
+                    return (
+                        <ul>
+                            { data.cart.map(cartItem => (
                                 <li key={cartItem.id}>
-                                    <CartItem cartItem={cartItem} />
-                                </li>
-                            )) : <li>Cart is empty</li>
-                        }
-                    </ul>
-                )
+                                <CartItem cartItem={cartItem} />
+                            </li> 
+                            )) }
+                            <li>Total: ${data.cart.map(item => item.price).reduce((acc, cv) => acc + cv)}</li>
+                        </ul>
+                    )
+                }else{
+                    return (
+                        <div>Cart is empty.</div>   
+                    )
+                }
             }}
         </Query>
     );

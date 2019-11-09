@@ -4,7 +4,7 @@ import { FETCH_PRODUCT } from "../../graphql/queries";
 import { Query } from "react-apollo";
 import AddItemToCart from "./AddToCart";
 
-function ProductsIndex(props) {
+function ProductDetail(props) {
     return (
         <Query query={FETCH_PRODUCT} variables={ props.match.params }>
             {({ loading, error, data }) => {
@@ -30,4 +30,4 @@ function ProductsIndex(props) {
     );
 }
 
-export default ProductsIndex;
+export default ProductDetail;

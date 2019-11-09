@@ -34,3 +34,27 @@ export const FETCH_CART_ITEMS = gql`
     cart @client
   }
 `;
+
+export const FETCH_CATEGORIES = gql`
+  {
+    categories{
+      id,
+      name
+    }
+  }
+`;
+
+export const FETCH_CATEGORY = gql`
+  query FetchCategory($id: ID!){
+    category(id: $id){
+      id,
+      name,
+      products{
+        id,
+        name,
+        description,
+        price
+      }
+    }
+  }
+`;

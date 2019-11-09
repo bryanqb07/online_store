@@ -8,4 +8,6 @@ const Home = () => (
         <CategoriesIndex />
         <ProductsIndex />
     </div>
-)
+);
+
+export default Home;

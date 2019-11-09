@@ -36,3 +36,12 @@ export const CREATE_PRODUCT = gql`
         }
     }
 `;
+
+export const CREATE_CATEGORY = gql`
+    mutation CreateCategory($name: String!){
+        newCategory(name: $name){
+            id,
+            name
+        }
+    }
+`;

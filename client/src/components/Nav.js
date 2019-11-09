@@ -11,19 +11,25 @@ const Nav = props => {
                     {({ data }) => {
                         if (data.isLoggedIn) {
                             return (
-                                <button
-                                    onClick={e => {
-                                        e.preventDefault();
-                                        localStorage.removeItem("auth-token");
-                                        client.writeData({ data: { isLoggedIn: false } });
-                                    }}
-                                >
-                                    Logout
-                </button>
+                                <div>
+                                    <Link to="/">Home</Link>
+                                    <Link to="/cart">Cart</Link>
+                                    <button
+                                        onClick={e => {
+                                            e.preventDefault();
+                                            localStorage.removeItem("auth-token");
+                                            client.writeData({ data: { isLoggedIn: false } });
+                                        }}
+                                    >
+                                        Logout
+                                    </button>
+                                </div>
                             );
                         } else {
                             return (
                                 <div>
+                                    <Link to="/">Home</Link>
+                                    <Link to="/cart">Cart</Link>
                                     <Link to="/login">Login</Link>
                                 </div>
                             );

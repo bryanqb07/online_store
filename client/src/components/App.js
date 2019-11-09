@@ -7,6 +7,7 @@ import Nav from './Nav';
 import Registration from "./Registration";
 import ProductDetail from './products/ProductDetail'
 import CreateProduct from "./CreateProduct";
+import Cart from "./cart/Cart";
 
 const App = () => (
   <div>
@@ -18,6 +19,7 @@ const App = () => (
       <Route exact path="/" component={ProductsIndex} />
       <Route path="/products/:id" component={ProductDetail} />
       <AuthRoute path="/staff/products/new" component={CreateProduct} />
+      <Route path="/cart" component={Cart} />
     </Switch>
   </div>
 )

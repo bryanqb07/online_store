@@ -28,3 +28,9 @@ export const IS_LOGGED_IN = gql`
     isLoggedIn @client
   } 
 `;
+
+export const FETCH_CART_ITEMS = gql`
+  query FetchCartItems{
+    cart @client
+  }
+`;

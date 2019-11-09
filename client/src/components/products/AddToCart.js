@@ -1,30 +1,57 @@
-import React, { Component } from "react";
-import { Link } from 'react-router-dom';
+import React from "react";
 import { FETCH_CART_ITEMS } from "../../graphql/queries";
-import { Query } from "react-apollo";
-import CartItem from "../cart/CartItem";
+import { Query, ApolloConsumer } from "react-apollo";
 
-function ProductsIndex() {
+const AddItemToCart = ({id, price}) => {
     return (
-        <Query query={FETCH_CART_ITEMS}>
-            {({ loading, error, data }) => {
-                if (loading) return "Loading..."
-                if (error) return `Error! ${error.message}`;
-
-                return (
-                    <ul>
-                        {
-                            data.cart.map(cartItem => (
-                                <li key={cartItem.id}>
-                                    <CartItem cartItem={cartItem} />
-                                </li>
-                            ))
-                        }
-                    </ul>
-                )
-            }}
-        </Query>
+        <ApolloConsumer>
+            {cache => (
+            <Query query={FETCH_CART_ITEMS} variables={{ productId: id }}>
+                {({ loading, error, data }) => {
+                    if (loading) return "Loading..."
+                    if (error) return `Error! ${error.message}`;
+                    
+                    if(data.cart.some(item => item.id === id)){
+                        return (
+                            <button onClick={e => {
+                                e.preventDefault();
+                                // first we read the query from the cache
+                                const { cart } = cache.readQuery({
+                                    query: FETCH_CART_ITEMS
+                                })
+                                 // filter out the item we want to remove
+                                const data = {
+                                    cart: cart.filter(item => item.id !== id)
+                                }
+                                // re-add to our cache with that removed item
+                                cache.writeQuery({ query: FETCH_CART_ITEMS, data })
+                            }}>Remove from cart</button>
+                        );
+                    }else{
+                        return(
+                            <button onClick={e => {
+                                e.preventDefault();
+                                // read from the cache
+                                const { cart } = cache.readQuery({
+                                    query: FETCH_CART_ITEMS
+                                });
+                                // create our object with the id and cost from our props and add it to
+                                // the array of cart items
+                                const data = {
+                                    cart: [...cart, { id, price } ]
+                                } 
+                                // write to our cache with our new array of cart items!
+                                cache.writeQuery({ query: FETCH_CART_ITEMS, data })
+                            }}>
+                                Add to cart
+                            </button>
+                        )
+                    }
+                }}
+            </Query>
+            )}
+        </ApolloConsumer>
     );
 }
 
-export default ProductsIndex;
+export default AddItemToCart;

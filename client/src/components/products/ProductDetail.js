@@ -1,7 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from 'react-router-dom';
 import { FETCH_PRODUCT } from "../../graphql/queries";
 import { Query } from "react-apollo";
+import AddItemToCart from "./AddToCart";
 
 function ProductsIndex(props) {
     return (
@@ -19,7 +20,7 @@ function ProductsIndex(props) {
                         <br />
                         <span>Price: ${product.price}</span>
                         <br />
-                        <Link to={"/cart/"}>Add to Cart</Link>
+                        <AddItemToCart price={product.price} id={product.id} />
                         <br />
                         <Link to={"/cart/checkout"}>Checkout</Link>
                     </div>
